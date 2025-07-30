@@ -25,6 +25,14 @@ body {
   overflow-y: auto;
   padding: 2vh 5vw;
 }
+#playerNameContainer {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.hidden {
+  display: none;
+}
+
 .game-container {
   display: flex;
   flex-direction: column;

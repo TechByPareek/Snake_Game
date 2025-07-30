@@ -155,16 +155,16 @@ window.addEventListener("keydown", (e) => {
     moveSound.play(); // Keep sound
     switch (e.key) {
         case "ArrowUp":
-            if (inputDir.y === 0) inputDir = { x: 0, y: -1 };
+            if (inputDir.y !== 1) inputDir = {x: 0, y: -1};
             break;
         case "ArrowDown":
-            if (inputDir.y === 0) inputDir = { x: 0, y: 1 };
+            if (inputDir.y !== -1) inputDir = {x: 0, y: 1};
             break;
         case "ArrowLeft":
-            if (inputDir.x === 0) inputDir = { x: -1, y: 0 };
+            if (inputDir.x !== 1) inputDir = {x: -1, y: 0};
             break;
         case "ArrowRight":
-            if (inputDir.x === 0) inputDir = { x: 1, y: 0 };
+            if (inputDir.x !== -1) inputDir = {x: 1, y: 0};
             break;
     }
 });
@@ -207,19 +207,20 @@ function move(dir) {
 
     switch (dir) {
         case 'up':
-            if (inputDir.y === 0) inputDir = { x: 0, y: -1 };
+            if (inputDir.y !== 1) inputDir = { x: 0, y: -1 };
             break;
         case 'down':
-            if (inputDir.y === 0) inputDir = { x: 0, y: 1 };
+            if (inputDir.y !== -1) inputDir = { x: 0, y: 1 };
             break;
         case 'left':
-            if (inputDir.x === 0) inputDir = { x: -1, y: 0 };
+            if (inputDir.x !== 1) inputDir = { x: -1, y: 0 };
             break;
         case 'right':
-            if (inputDir.x === 0) inputDir = { x: 1, y: 0 };
+            if (inputDir.x !== -1) inputDir = { x: 1, y: 0 };
             break;
     }
 }
+
 
 
 let touchStartX = 0;
@@ -236,11 +237,11 @@ document.addEventListener('touchend', (e) => {
   let dy = e.changedTouches[0].clientY - touchStartY;
 
   if (Math.abs(dx) > Math.abs(dy)) {
-    if (dx > 0 && inputDir.x === 0) inputDir = { x: 1, y: 0 };
-    else if (dx < 0 && inputDir.x === 0) inputDir = { x: -1, y: 0 };
+    if (dy > 0 && inputDir.y !== -1) inputDir = { x: 0, y: 1 };
+else if (dy < 0 && inputDir.y !== 1) inputDir = { x: 0, y: -1 };
   } else {
-    if (dy > 0 && inputDir.y === 0) inputDir = { x: 0, y: 1 };
-    else if (dy < 0 && inputDir.y === 0) inputDir = { x: 0, y: -1 };
+    if (dx > 0 && inputDir.x !== -1) inputDir = { x: 1, y: 0 };
+else if (dx < 0 && inputDir.x !== 1) inputDir = { x: -1, y: 0 };
   }
 
   if (!gameStarted) {
@@ -250,6 +251,18 @@ document.addEventListener('touchend', (e) => {
 
   moveSound.play();
 });
+function setPlayerName() {
+  const nameInput = document.getElementById("playerNameInput");
+  const nameDisplay = document.getElementById("playerNameDisplay");
+  const name = nameInput.value.trim();
+
+  if (name !== "") {
+    nameDisplay.textContent = `Player: ${name}`;
+    nameDisplay.classList.remove("hidden");
+    nameInput.style.display = "none";
+    nameInput.nextElementSibling.style.display = "none"; // hide the button
+  }
+}
 
 
 // Start game
