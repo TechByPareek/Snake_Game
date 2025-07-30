@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>Snake Game</title>
     <link
   rel="stylesheet"
@@ -38,12 +40,15 @@
     <button id="playAgainBtn">Play Again</button>
   </div>
 </div>
-<div id="controls">
-  <button onclick="move('up')">⬆️</button><br>
-  <button onclick="move('left')">⬅️</button>
-  <button onclick="move('down')">⬇️</button>
-  <button onclick="move('right')">➡️</button>
+<div class="mobile-controls">
+  <button onclick="move('up')">⬆️</button>
+  <div>
+    <button onclick="move('left')">⬅️</button>
+    <button onclick="move('down')">⬇️</button>
+    <button onclick="move('right')">➡️</button>
+  </div>
 </div>
+
 
 
     <script src="index.js"></script>

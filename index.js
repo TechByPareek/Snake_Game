@@ -69,18 +69,7 @@ function gameEngine() {
     gameStarted = false;
     return;
 }
-const playAgainBtn = document.getElementById("playAgainBtn");
-playAgainBtn.addEventListener("click", () => {
-    // Reset everything
-    snakeArray = [{ x: 13, y: 15 }];
-    food = { x: 6, y: 7 };
-    score = 0;
-    scoreBox.innerHTML = "Score: 0";
-    inputDir = { x: 0, y: 0 };
-    document.getElementById("gameOverModal").classList.add("hidden");
-    gameStarted = false;
-    musicSound.play();
-});
+
 
     // 2. Food eaten
     if (snakeArray[0].x === food.x && snakeArray[0].y === food.y) {
@@ -134,6 +123,23 @@ window.addEventListener("keydown", (e) => {
             musicSound.play();
         }
     }
+});
+const playAgainBtn = document.getElementById("playAgainBtn");
+playAgainBtn.addEventListener("click", () => {
+    // Reset everything
+    snakeArray = [{ x: 13, y: 15 }];
+    food = { x: 6, y: 7 };
+    score = 0;
+    scoreBox.innerHTML = "Score: 0";
+    inputDir = { x: 0, y: 0 };
+    isPaused = false; //  Important to resume the game loop
+    lastPaintTime = 0; //  Reset time to ensure the loop starts properly
+    document.getElementById("gameOverModal").classList.add("hidden");
+    gameStarted = true; //  To allow movement
+    musicSound.play();
+
+    // Start the game loop again
+    window.requestAnimationFrame(main);
 });
 
 // Controls (arrow keys)
@@ -189,12 +195,33 @@ if (toggleMusic) {
         musicPlaying = !musicPlaying;
     });
 }
+
+
 function move(dir) {
-    if (dir === "up") inputDir = { x: 0, y: -1 };
-    else if (dir === "down") inputDir = { x: 0, y: 1 };
-    else if (dir === "left") inputDir = { x: -1, y: 0 };
-    else if (dir === "right") inputDir = { x: 1, y: 0 };
+    if (!gameStarted) {
+        gameStarted = true;
+        musicSound.play();
+    }
+
+    moveSound.play();
+
+    switch (dir) {
+        case 'up':
+            if (inputDir.y === 0) inputDir = { x: 0, y: -1 };
+            break;
+        case 'down':
+            if (inputDir.y === 0) inputDir = { x: 0, y: 1 };
+            break;
+        case 'left':
+            if (inputDir.x === 0) inputDir = { x: -1, y: 0 };
+            break;
+        case 'right':
+            if (inputDir.x === 0) inputDir = { x: 1, y: 0 };
+            break;
+    }
 }
+
+
 let touchStartX = 0;
 let touchStartY = 0;
 
