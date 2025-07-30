@@ -231,14 +231,24 @@ document.addEventListener('touchstart', (e) => {
 });
 
 document.addEventListener('touchend', (e) => {
+    if (e.target.closest('.mobile-controls')) return;
   let dx = e.changedTouches[0].clientX - touchStartX;
   let dy = e.changedTouches[0].clientY - touchStartY;
 
   if (Math.abs(dx) > Math.abs(dy)) {
-    inputDir = dx > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+    if (dx > 0 && inputDir.x === 0) inputDir = { x: 1, y: 0 };
+    else if (dx < 0 && inputDir.x === 0) inputDir = { x: -1, y: 0 };
   } else {
-    inputDir = dy > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+    if (dy > 0 && inputDir.y === 0) inputDir = { x: 0, y: 1 };
+    else if (dy < 0 && inputDir.y === 0) inputDir = { x: 0, y: -1 };
   }
+
+  if (!gameStarted) {
+    gameStarted = true;
+    musicSound.play();
+  }
+
+  moveSound.play();
 });
 
 
