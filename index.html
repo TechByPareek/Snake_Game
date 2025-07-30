@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>Snake Game</title>
@@ -25,6 +25,14 @@
 
             <!-- Game Board -->
             <div id="board"></div>
+<div class="mobile-controls">
+  <button onclick="move('up')">⬆️</button>
+  <div>
+    <button onclick="move('left')">⬅️</button>
+    <button onclick="move('down')">⬇️</button>
+    <button onclick="move('right')">➡️</button>
+  </div>
+</div>
 
             <!-- Controls -->
             <div class="controls">
@@ -38,14 +46,6 @@
     <h2>Game Over 💀</h2>
     <p id="finalScore">Your Score: 0</p>
     <button id="playAgainBtn">Play Again</button>
-  </div>
-</div>
-<div class="mobile-controls">
-  <button onclick="move('up')">⬆️</button>
-  <div>
-    <button onclick="move('left')">⬅️</button>
-    <button onclick="move('down')">⬇️</button>
-    <button onclick="move('right')">➡️</button>
   </div>
 </div>
 
