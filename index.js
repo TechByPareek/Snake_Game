@@ -189,6 +189,31 @@ if (toggleMusic) {
         musicPlaying = !musicPlaying;
     });
 }
+function move(dir) {
+    if (dir === "up") inputDir = { x: 0, y: -1 };
+    else if (dir === "down") inputDir = { x: 0, y: 1 };
+    else if (dir === "left") inputDir = { x: -1, y: 0 };
+    else if (dir === "right") inputDir = { x: 1, y: 0 };
+}
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener('touchend', (e) => {
+  let dx = e.changedTouches[0].clientX - touchStartX;
+  let dy = e.changedTouches[0].clientY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    inputDir = dx > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+  } else {
+    inputDir = dy > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+  }
+});
+
 
 // Start game
 window.requestAnimationFrame(main);
